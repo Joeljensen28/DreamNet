@@ -10,6 +10,7 @@ import random
 from torch.cuda import is_available, manual_seed_all
 import numpy as np
 import torch
+import tqdm
 
 torch.manual_seed(777)
 np.random.seed(777)
@@ -75,7 +76,7 @@ for epoch in range(1, 51):
     print(f'Number of batches: {len(train_loader)}')
     print(f'Epoch {epoch}')
     model.train()
-    for batch_inputs, batch_targets in train_loader:
+    for batch_inputs, batch_targets in tqdm(train_loader, desc=f'Epoch {epoch}'):
         batch_start = time.time()
 
         batch_inputs = batch_inputs.to(device)
@@ -93,12 +94,10 @@ for epoch in range(1, 51):
 
         loss = total_loss / K
 
-        print(f'Batch loss: {loss.item()}')
         optimizer.zero_grad()
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
         optimizer.step()
-        print(f'Batch processing time: {(time.time() - batch_start):.2f}s')
     scheduler.step()
 
     print(f'Epoch {epoch} loss: {loss.item():.4f}')
