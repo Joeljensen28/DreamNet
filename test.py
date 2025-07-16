@@ -30,8 +30,8 @@ split_idx = int(0.1 * len(all_files))
 val_files = all_files[:split_idx]
 train_files = all_files[split_idx:]
 
-train_data = Dataset()
-val_data = Dataset()
+train_data = Dataset(tokens=TOKENS_DIR)
+val_data = Dataset(tokens=TOKENS_DIR)
 
 train_data.index_map = [
     (fp, off) for (fp, off) in train_data.index_map
