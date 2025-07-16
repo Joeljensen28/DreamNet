@@ -78,7 +78,7 @@ n_epochs = 5
 
 for epoch in range(1, n_epochs+1):
     model.train()
-    for batch_inputs, batch_targets in tqdm(train_loader, desc=f'Epoch {epoch}'):
+    for batch_inputs, batch_targets in tqdm(train_loader, desc=f'Epoch {epoch}/{n_epochs}'):
 
         batch_inputs = batch_inputs.to(device)
         batch_targets = batch_targets.to(device)
