@@ -73,10 +73,12 @@ optimizer = optim.AdamW(model.parameters(), lr=1e-4, weight_decay=1e-2)
 scheduler = StepLR(optimizer, step_size=10, gamma=0.5)
 
 print(f'Number of batches: {len(train_loader)}')
-for epoch in range(1, 21):
+
+n_epochs = 5
+
+for epoch in range(1, n_epochs+1):
     model.train()
     for batch_inputs, batch_targets in tqdm(train_loader, desc=f'Epoch {epoch}'):
-        batch_start = time.time()
 
         batch_inputs = batch_inputs.to(device)
         batch_targets = batch_targets.to(device)
