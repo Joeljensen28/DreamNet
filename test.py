@@ -74,7 +74,6 @@ scheduler = StepLR(optimizer, step_size=10, gamma=0.5)
 
 for epoch in range(1, 51):
     print(f'Number of batches: {len(train_loader)}')
-    print(f'Epoch {epoch}')
     model.train()
     for batch_inputs, batch_targets in tqdm(train_loader, desc=f'Epoch {epoch}'):
         batch_start = time.time()
