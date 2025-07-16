@@ -22,7 +22,7 @@ if is_available():
 
 print(f'Using {device}')
 
-TOKENS_DIR = 'data/tokens'
+TOKENS_DIR = '/content/drive/MyDrive/dreamnet/data/tokens'
 all_files = sorted(f for f in os.listdir(TOKENS_DIR) if f.endswith('.pt'))
 random.seed(777)
 random.shuffle(all_files)
