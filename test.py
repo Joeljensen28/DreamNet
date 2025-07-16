@@ -10,7 +10,7 @@ import random
 from torch.cuda import is_available, manual_seed_all
 import numpy as np
 import torch
-import tqdm
+from tqdm import tqdm
 
 torch.manual_seed(777)
 np.random.seed(777)
