@@ -72,8 +72,8 @@ loss_fn = nn.CrossEntropyLoss()
 optimizer = optim.AdamW(model.parameters(), lr=1e-4, weight_decay=1e-2)
 scheduler = StepLR(optimizer, step_size=10, gamma=0.5)
 
-for epoch in range(1, 51):
-    print(f'Number of batches: {len(train_loader)}')
+print(f'Number of batches: {len(train_loader)}')
+for epoch in range(1, 21):
     model.train()
     for batch_inputs, batch_targets in tqdm(train_loader, desc=f'Epoch {epoch}'):
         batch_start = time.time()
@@ -99,7 +99,7 @@ for epoch in range(1, 51):
         optimizer.step()
     scheduler.step()
 
-    print(f'Epoch {epoch} loss: {loss.item():.4f}')
+    print(f'Epoch {epoch} loss: {loss.item():.4f}\n')
 
     model.eval()
     with torch.no_grad():
@@ -122,7 +122,7 @@ for epoch in range(1, 51):
             val_loss += loss.item()
 
         val_loss /= len(val_loader)
-        print(f'Val loss: {val_loss}')
+        print(f'Val loss: {val_loss}\n')
     
     torch.save({
         'epoch': epoch,
@@ -130,3 +130,7 @@ for epoch in range(1, 51):
         'opt_state': optimizer.state_dict(),
         'sched_state': scheduler.state_dict()
     }, f'ckpt_epoch{epoch:02d}.pt')
+
+torch.save(
+    model.state_dict(), 'dreamnet_weights.pth'
+)
