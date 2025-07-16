@@ -15,10 +15,12 @@ torch.manual_seed(777)
 np.random.seed(777)
 
 device = 'cpu'
+num_workers = 0
 if is_available():
     device = 'cuda'
     manual_seed_all(777)
     torch.backends.cudnn.benchmark = True
+    num_workers = max(1, os.cpu_count() - 1)
 
 print(f'Using {device}')
 
@@ -47,7 +49,7 @@ train_loader = DataLoader(
     train_data,
     batch_size=16,
     shuffle=True,
-    num_workers=0,
+    num_workers=num_workers,
     pin_memory=False
 )
 
@@ -55,7 +57,7 @@ val_loader = DataLoader(
     val_data,
     batch_size=16,
     shuffle=False,
-    num_workers=0,
+    num_workers=num_workers,
     pin_memory=False
 )
 
