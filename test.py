@@ -23,6 +23,7 @@ if is_available():
     num_workers = max(1, os.cpu_count() - 1)
 
 print(f'Using {device}')
+print(f'num_workers: {num_workers}')
 
 TOKENS_DIR = '/content/drive/MyDrive/dreamnet/data/tokens'
 all_files = sorted(f for f in os.listdir(TOKENS_DIR) if f.endswith('.pt'))
@@ -63,7 +64,7 @@ val_loader = DataLoader(
 
 model = AudioTransformer(
     seq_len=511
-)
+).to(device)
 
 loss_fn = nn.CrossEntropyLoss()
 
